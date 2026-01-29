@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 22nd Birthday!</title>
+    <style>
+        :root {
+            --primary-pink: #ff69b4;
+            --soft-pink: #ffb6c1;
+            --white: #ffffff;
+            --bg-color: #fff0f5;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(255, 105, 180, 0.15);
+            text-align: center;
+            border: 4px solid var(--white);
+            max-width: 450px;
+            position: relative;
+            z-index: 100;
+            transition: all 1s ease;
+        }
+
+        h1 { 
+            color: var(--primary-pink); 
+            font-size: 2.8rem; 
+            margin: 0; 
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05)); 
+        }
+
+        .date-sub { 
+            color: #aaa; 
+            letter-spacing: 3px; 
+            font-weight: bold; 
+            margin-bottom: 30px; 
+            font-size: 0.9rem; 
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-pink), #ff1493);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+        }
+
+        button:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(255, 20, 147, 0.5); 
+        }
+
+        #wish-line {
+            margin-top: 25px;
+            font-size: 1.4rem;
+            color: #ff1493;
+            font-style: italic;
+            font-weight: 500;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 2s ease;
+            line-height: 1.5;
+        }
+
+        .show-wish {
+            opacity: 1 !important;
+            height: auto !important;
+            padding-top: 20px;
+            border-top: 2px dashed var(--soft-pink);
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -500px;
+            pointer-events: none;
+            z-index: 10;
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            will-change: transform;
+        }
+
+        @keyframes ultraSmoothFloat {
+            0% { 
+                transform: translateY(0) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(-160vh) translateX(-50px) rotate(20deg); 
+                opacity: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Happy Birthday chi Thanh 🎉</h1>
+        <div class="date-sub">30 • 01 • 2004</div>
+        
+        <button id="wishBtn" onclick="releaseBalloons()">Make a Wish ✨</button>
+        
+        <div id="wish-line">
+            "Chuc mung sinh nhat U30 =)))))"
+        </div>
+    </div>
+
+    <script>
+        const imageList = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg"];
+
+        function releaseBalloons() {
+            const btn = document.getElementById('wishBtn');
+            const wishLine = document.getElementById('wish-line');
+
+            btn.style.display = 'none';
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createBalloon();
+                }, i * 200); 
+            }
+
+            setTimeout(() => {
+                wishLine.classList.add('show-wish');
+            }, 3500);
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('img');
+            const randomImg = imageList[Math.floor(Math.random() * imageList.length)];
+            
+            balloon.src = randomImg;
+            balloon.classList.add('balloon');
+
+            const size = Math.floor(Math.random() * 150) + 200; 
+            const duration = (Math.random() * 3) + 7; 
+            
+            balloon.style.width = size + 'px';
+            balloon.style.left = Math.random() * 80 + 'vw';
+            balloon.style.animation = `ultraSmoothFloat ${duration}s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
+
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, duration * 1000);
+        }
+    </script>
+</body>
+</html>
